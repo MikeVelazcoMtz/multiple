@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Listado de Usuarios{% endblock title %}
+ {% block js %}
+     {{ block.super }}
+     <style>
+     .table-responsive{
+        margin-bottom: 45px;
+     }
+     .ajax_messages{
+        display: none;
+     }
+     </style>
+     <script>
+     jQuery(document).ready(function($) {
+        function getCookie(c_name) {
+            if(document.cookie.length > 0) {
+                c_start = document.cookie.indexOf(c_name + "=");
+                if(c_start != -1) {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(";", c_start);
+                    if(c_end == -1) c_end = document.cookie.length;
+                    return decodeURI(document.cookie.substring(c_start,c_end));
+                }
+            }
+            return "";
+        }
+
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            });
+        });
+        $('body').on('click', '.close', function(event) {$('.ajax_messages').hide();});
+        $(".confirm_delete").click(function(event) {
+            id = $(this).data('id');
+            {# url = '{% url "delete_user" "00" %}'.replace("00", id);#}
+            url = "alskdnaklsd"
+           
+            $.post(url, function(data, textStatus, xhr) {
+                alert = $(".ajax_messages div[role=alert]").removeAttr('class');
+                h_class = "alert alert-";
+                text = '<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                text += "<b>" + data['status'] + ":</b> " + data['msg'];
+                h_class += (data['status'] == "success") ? "success" : "danger";
+                alert.addClass(h_class).html(text)
+                $("p.delete[data-id=" + data['id'] + "]").parents('tr').remove();
+                $(".ajax_messages").show();
+                if (!$('table.table tbody tr').length) {
+                    empty_table = "<tr><td colspan=\"4\"><h3>Aún no tienes registrado ningún <a href=\"{% url 'clientes_new' %}\">Usuario</a>.</h3></td></tr>";
+                    $('table.table tbody').append(empty_table);
+                }
+            }).fail(function() {
+                alert = $(".ajax_messages div[role=alert]").removeAttr('class');
+                text  = '<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                text += "<b>Error:</b> Ha sucedido un error en el servidor.";
+                alert.addClass('alert alert-danger').html(text);
+                $(".ajax_messages").show();
+            });
+            $("#myModal").modal('hide');
+        });
+        $(".delete").click(function(){
+            $(".confirm_delete").data('id', $(this).data('id'));
+        });
+     });
+     </script>
+ {% endblock js %}
+{% block content %}
+    <div class="container">
+        <h1>Listado de Usuarios</h1>
+        <hr>
+        <br>
+        <div class="ajax_messages">
+            <div class="alert alert-success" role="alert"></div>
+        </div>
+        {% csrf_token %}
+        <div class="table-responsive">
+            {% if object_list %}
+            <table class="table">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Actualizar</th>
+                    <th>Eliminar</th>
+                </thead>
+                {% for item in object_list %}
+                    {% if forloop.first %}
+                        <tr>
+                            <td>{{ item.Nombre }}</td>
+                            <td>
+                                {# <a href="{% url "update_user" item.pk %}">Actualizar</a> #}
+                                Despues
+                            </td>
+                            <td>
+                                <p class="delete" data-id="{{ item.pk }}" data-toggle="modal" data-target="#myModal">Eliminar</p>
+                            </td>
+                    {% elif forloop.last %}
+                        </tr>
+                    {% else %}
+                        
+                    {% endif %}
+                {% endfor %}
+            </table>
+            {% else %}
+                <h1>Aún no tienes registrado ningún <a href="{% url 'clientes_new' %}">Usuario</a>.</h1>
+            {% endif %}
+        </div>
+        <div class="row">
+            <a class="btn btn-info" href="{% url "clientes_new" %}">Nuevo Usuario</a>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="confirm_delete" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                &nbsp;
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                ¿Esta seguro de que realmente quiere eliminar el registro?. Este cambio no se puede deshacer.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm_delete" >Si, eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock content %}

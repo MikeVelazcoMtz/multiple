@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% block title %}Nuevo Cliente{% endblock title %}
+{% block js %}
+    {{ block.super }}
+    <style>
+    .heading_1 {
+        font-size: 36px;
+        font-weight: 500;
+    }
+    .btn_back {
+        margin-top: 10px;
+        float: right;
+    }
+    </style>
+{% endblock js %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-9 col-sm-9 col-xs-9">
+            <p class="heading_1">Nuevo Cliente</p>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs3">
+            <a href="{% url "clientes_list" %}" class="btn btn-info push-right btn_back">Regresar al listado</a>
+        </div>
+    </div>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-default" value="GUARDAR">
+    </form>
+{% endblock content %}

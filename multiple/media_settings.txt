@@ -1,0 +1,1 @@
+{'MEDIA_URL': '/Users/usuario/multiple/multiple/default/media', 'MEDIAFILE_DIRS': ['/Users/usuario/multiple/multiple/default/media']}
