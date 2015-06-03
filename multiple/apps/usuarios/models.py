@@ -1,9 +1,5 @@
-from django.db import models
-
-
-def content_file_name(instance, filename):
-    print "INSTANCE(%s)" % instance._state.db
-    return "/".join(instance._state.db, filename)
+from django.db import models, router
+from multiple.utils import content_file_name
 
 
 class Cliente(models.Model):
@@ -16,6 +12,6 @@ class Cliente(models.Model):
     Foto = models.ImageField(upload_to=content_file_name)
 
     def __unicode__(self):
-        return "Hello World"
+        return "%s" % (self.Nombre)
 
     MY_FIELDS = ["Nombre", "Foto"]

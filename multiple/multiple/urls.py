@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^[a-z0-9]{3,14}/clientes$', ClienteListView.as_view(), name="clientes_list"),
     url(r'^[a-z0-9]{3,14}/clientes/new', ClienteCreateView.as_view(), name="clientes_new"),
 
-    url(r'^[a-z0-9]{3,14}/admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:

@@ -83,23 +83,20 @@
                     <th>Actualizar</th>
                     <th>Eliminar</th>
                 </thead>
+                <tbody>
                 {% for item in object_list %}
-                    {% if forloop.first %}
-                        <tr>
-                            <td>{{ item.Nombre }}</td>
-                            <td>
-                                {# <a href="{% url "update_user" item.pk %}">Actualizar</a> #}
-                                Despues
-                            </td>
-                            <td>
-                                <p class="delete" data-id="{{ item.pk }}" data-toggle="modal" data-target="#myModal">Eliminar</p>
-                            </td>
-                    {% elif forloop.last %}
-                        </tr>
-                    {% else %}
-                        
-                    {% endif %}
+                    <tr>
+                        <td>{{ item.Nombre }}</td>
+                        <td>
+                            {# <a href="{% url "update_user" item.pk %}">Actualizar</a> #}
+                            Despues
+                        </td>
+                        <td>
+                            <p class="delete" data-id="{{ item.pk }}" data-toggle="modal" data-target="#myModal">Eliminar</p>
+                        </td>
+                    </tr>
                 {% endfor %}
+                </tbody>
             </table>
             {% else %}
                 <h1>Aún no tienes registrado ningún <a href="{% url 'clientes_new' %}">Usuario</a>.</h1>
