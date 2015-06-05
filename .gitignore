@@ -1,2 +1,6 @@
 *.pyc
 *.sqlite3
+multiple/media/*
+multiple/test.py
+multiple/requests.log
+multiple/uwsgi_log.log

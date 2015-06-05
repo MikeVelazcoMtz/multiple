@@ -4,13 +4,13 @@ from django.views.generic import ListView, CreateView
 from .models import Cliente
 
 
-# class UserListView(ListView):
-#     model = User
-#     template_name = "index.html"
+class UserListView(ListView):
+    model = User
+    template_name = "index.html"
 
-#     def get(self, request, *args, **kwargs):
-#         print s.MEDIAFILE_DIRS
-#         return super(UserListView, self).get(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        print s.MEDIAFILE_DIRS
+        return super(UserListView, self).get(request, *args, **kwargs)
 
 
 class ClienteCreateView(CreateView):

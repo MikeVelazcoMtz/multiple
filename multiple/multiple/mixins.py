@@ -21,5 +21,4 @@ class DataBaseChange(object):
     def dispatch(self, request, *args, **kwargs):
         url = request.path
         url = url.split("/")
-        print request.path, url
         return super(DataBaseChange, self).dispatch(request, *args, **kwargs)

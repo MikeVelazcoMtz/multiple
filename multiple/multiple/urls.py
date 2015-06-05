@@ -7,9 +7,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'multiple.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     # url(r'^[a-z0-9]{3,14}/list/user', UserListView.as_view(), name="user_list"),
-    url(r'^[a-z0-9]{3,14}/clientes/list', ClienteListView.as_view(), name="clientes_list"),
-    url(r'^[a-z0-9]{3,14}/clientes$', ClienteListView.as_view(), name="clientes_list"),
-    url(r'^[a-z0-9]{3,14}/clientes/new', ClienteCreateView.as_view(), name="clientes_new"),
+    url(r'^clientes/list', ClienteListView.as_view(), name="clientes_list"),
+    url(r'^clientes$', ClienteListView.as_view(), name="clientes_list"),
+    url(r'^clientes/new', ClienteCreateView.as_view(), name="clientes_new"),
 
     url(r'^admin/', include(admin.site.urls)),
 )
