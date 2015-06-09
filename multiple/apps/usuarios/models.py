@@ -1,5 +1,5 @@
-from django.db import models, router
-from multiple.utils import content_file_name
+from django.db import models
+from multiple.utils import NMImageField
 
 
 class Cliente(models.Model):
@@ -9,7 +9,7 @@ class Cliente(models.Model):
         verbose_name_plural = "Clientes"
 
     Nombre = models.CharField("Nombre", max_length=50)
-    Foto = models.ImageField(upload_to=content_file_name)
+    Foto = NMImageField()
 
     def __unicode__(self):
         return "%s" % (self.Nombre)

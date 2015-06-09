@@ -5,7 +5,7 @@ from .models import Cliente
 
 
 class UserListView(ListView):
-    model = User
+    model = Cliente
     template_name = "index.html"
 
     def get(self, request, *args, **kwargs):
